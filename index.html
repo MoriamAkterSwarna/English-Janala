@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <!-- <html lang="en"> -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Janala</title>
+    <link
+      rel="shortcut icon"
+      href="https://img.icons8.com/?size=96&id=nVY8CMy2eyV6&format=png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5.0.0-beta.8/daisyui.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Delius&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      @font-face {
+        font-family: "bangla";
+        src: url("./fonts/alinur.ttf");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      * {
+        font-family: "Poppins", serif;
+      }
+      .font-bangla {
+        font-family: bangla, serif;
+      }
+
+      .active {
+        background: #3b25c1;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- navbar  -->
+
+    <header id="nav" class="fixed w-full glass z-10">
+      <nav>
+        <div class="navbar flex-wrap gap-5">
+          <div class="flex-1 flex justify-center lg:justify-start">
+            <a class="text-xl flex items-center">
+              <span class="font-semibold">English</span>
+              <img
+                class="w-10"
+                src="https://img.icons8.com/?size=96&id=gXoJoyTtYXFg&format=png"
+                alt=""
+              />
+              <span class="font-bangla text-2xl">জানালা</span>
+            </a>
+          </div>
+          <div class="lg:flex-none flex-1">
+            <ul class="px-1 space-x-4 justify-center flex">
+              <li>
+                <a href="#faq" class="btn btn-outline btn-primary">
+                  <i class="fa-solid fa-circle-question"></i> FAQ
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#playground"
+                  id="learn-btn"
+                  class="btn btn-outline btn-primary"
+                >
+                  <i class="fa-solid fa-book-open"></i> Learn
+                </a>
+              </li>
+
+              <li>
+                <button id="logout-btn" class="btn btn-outline btn-primary">
+                  <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Banner  -->
+    <section id="hero" class="w-11/12 mx-auto pt-10" id="home">
+      <div class="min-h-screen">
+        <div
+          class="flex justify-between flex-col md:flex-row-reverse items-center"
+        >
+          <div class="flex-1">
+            <img
+              src="./assets/hero-student.png"
+              class="md:w-full w-1/2 mx-auto"
+            />
+          </div>
+
+          <div class="flex-1 text-center md:text-left">
+            <h1 class="text-5xl font-bold">
+              <span class="text-sky-400">English</span> is Easy!!
+            </h1>
+            <p class="py-6 font-bangla text-lg">
+              আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা
+              আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে নিয়ে
+              যাবে অন্য একটি Level এ
+            </p>
+
+            <div
+              class="flex gap-5 flex-col md:max-w-xs max-w-md py-3 mx-auto md:mx-0"
+            >
+              <input
+                type="text"
+                id="user-name-input"
+                placeholder="Enter Your Name"
+                class="input input-bordered w-full outline-0"
+              />
+              <input
+                type="password"
+                id="user-pass-input"
+                placeholder="Enter Login Code (123456)"
+                class="input input-bordered w-full outline-0"
+              />
+              <button
+                id="start-btn"
+                class="btn btn-primary max-w-fit mx-auto md:mx-0"
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main id="playground" class="min-h-screen py-10 pt-20">
+      <h2 class="text-center font-bold text-4xl">
+        <span class="text-sky-400">Lets</span> Learn Vocabularies
+      </h2>
+      <div
+        id="level-container"
+        class="w-11/12 mx-auto flex flex-wrap justify-center gap-5 py-10"
+      ></div>
+
+      <div class="w-11/12 mx-auto grid grid-cols-12 gap-10">
+        <div
+          id="word-container"
+          class="col-span-full bg-base-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-5"
+        >
+          <div
+            id="current-lesson"
+            class="text-center col-span-full py-10 space-y-6"
+          >
+            <p class="font-bangla text-stone-500">
+              আপনি এখনো কোন Lesson Select করেন নি
+            </p>
+            <h2 class="font-bangla text-stone-800 text-4xl">
+              একটি Lesson Select করুন।
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div
+        id="loader"
+        class="w-11/12 flex hidden bg-base-200 mx-auto p-5 gap-10 justify-center"
+      >
+        <span class="loading loading-dots loading-lg"></span>
+      </div>
+    </main>
+
+    <section id="faq" class="w-11/12 mx-auto space-y-5 my-10 pt-24">
+      <h2 class="text-center font-bold text-4xl mb-5">
+        <span class="text-sky-400"> Frequently </span>Asked Questions
+      </h2>
+
+      <div class="collapse collapse-plus bg-base-200">
+        <input type="radio" name="my-accordion-3" checked="checked" />
+        <div class="collapse-title font-medium">
+          1. What is the difference between var, let, and const?
+        </div>
+        <div class="collapse-content">
+          <p class="text-slate-500">Write your Answer Here</p>
+        </div>
+      </div>
+      <div class="collapse collapse-plus bg-base-200">
+        <input type="radio" name="my-accordion-3" />
+        <div class="collapse-title font-medium">
+          2. What is the difference between map(), forEach(), and filter()
+        </div>
+        <div class="collapse-content">
+          <p class="text-slate-500">Write your Answer Here</p>
+        </div>
+      </div>
+      <div class="collapse collapse-plus bg-base-200">
+        <input type="radio" name="my-accordion-3" />
+        <div class="collapse-title font-medium">
+          3. What are arrow functions, and how are they different from regular
+          functions?
+        </div>
+        <div class="collapse-content">
+          <p class="text-slate-500">Write your Answer Here</p>
+        </div>
+      </div>
+      <div class="collapse collapse-plus bg-base-200">
+        <input type="radio" name="my-accordion-3" />
+        <div class="collapse-title font-medium">
+          4. How do JavaScript Promises work?
+        </div>
+        <div class="collapse-content">
+          <p class="text-slate-500">Write your Answer Here</p>
+        </div>
+      </div>
+      <div class="collapse collapse-plus bg-base-200">
+        <input type="radio" name="my-accordion-3" />
+        <div class="collapse-title font-medium">
+          5. How does closure work in JavaScript
+        </div>
+        <div class="collapse-content">
+          <p class="text-slate-500">Write your Answer Here</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer  -->
+    <footer class="shadow-inner">
+      <footer
+        class="footer w-11/12 mx-auto py-10 flex justify-between bg-contain"
+      >
+        <aside>
+          <a class="text-xl flex items-center">
+            <span class="font-semibold">English</span>
+            <img
+              class="w-10"
+              src="https://img.icons8.com/?size=96&id=gXoJoyTtYXFg&format=png"
+              alt=""
+            />
+            <span class="font-bangla text-2xl">জানালা</span>
+          </a>
+          <p class="font-bangla">ইংরেজি শিখুন সহজে</p>
+          <p>Providing ED-Tech Applications since 2025</p>
+        </aside>
+        <nav>
+          <h6 class="footer-title">Follow us</h6>
+          <div class="grid grid-flow-col gap-4">
+            <i
+              class="fa-brands fa-facebook fa-2x hover:text-blue-500 cursor-pointer"
+            ></i>
+            <i
+              class="fa-brands fa-youtube fa-2x hover:text-red-500 cursor-pointer"
+            ></i>
+            <i
+              class="fa-brands fa-instagram fa-2x hover:text-pink-500 cursor-pointer"
+            ></i>
+            <i
+              class="fa-brands fa-github fa-2x hover:text-stone-700 cursor-pointer"
+            ></i>
+          </div>
+        </nav>
+      </footer>
+    </footer>
+
+    <!-- Open the modal using ID.showModal() method -->
+
+    <dialog id="my_modal_1" class="modal">
+      <div class="modal-box">
+        <div id="modal-container" class=""></div>
+
+        <div class="modal-action justify-start">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn btn-primary">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="./scripts/common.js"></script>
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>
