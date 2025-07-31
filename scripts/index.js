@@ -6,6 +6,106 @@ const getAllLevels = () => {
       displayLevels(data.data);
     });
 };
+
+const searchWords = (searchText) => {
+  if (!searchText.trim()) {
+    Swal.fire({
+      title: "Empty Search",
+      text: "Please enter a word to search",
+      icon: "warning",
+    });
+    return;
+  }
+
+  // Show loading state
+  getEl("search-results-section").classList.remove("hidden");
+  getEl("search-results-container").innerHTML = `
+    <div class="col-span-full flex justify-center items-center py-10">
+      <span class="loading loading-dots loading-lg"></span>
+      <span class="ml-3">Searching for "${searchText}"...</span>
+    </div>
+  `;
+
+  fetch(
+    `https://openapi.programming-hero.com/api/words?searchText=${encodeURIComponent(
+      searchText
+    )}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Search API response:", data); // Debug log
+      displaySearchResults(data.words, searchText); // Changed from data.data to data.words
+    })
+    .catch((error) => {
+      console.error("Search error:", error);
+      getEl("search-results-container").innerHTML = `
+        <div class="col-span-full text-center py-10 space-y-4">
+          <img class="block mx-auto w-16" src="./assets/alert-error.png" />
+          <p class="font-bangla text-stone-500">
+            Search করতে গিয়ে একটি সমস্যা হয়েছে।
+          </p>
+          <h2 class="font-bangla text-stone-800 text-2xl">
+            আবার চেষ্টা করুন
+          </h2>
+        </div>
+      `;
+    });
+};
+
+const displaySearchResults = (data, searchQuery) => {
+  getEl("search-query-display").innerText = `"${searchQuery}"`;
+  getEl("search-count").innerText = `${data.length} results found`;
+  getEl("search-results-container").innerHTML = "";
+
+  if (data.length === 0) {
+    getEl("search-results-container").classList.remove("lg:grid-cols-3");
+    getEl("search-results-container").innerHTML = `
+      <div class="col-span-full text-center py-10 space-y-6">
+        <img class="block mx-auto" src="./assets/alert-error.png" />
+        <p class="font-bangla text-stone-500">
+          "${searchQuery}" এর জন্য কোন শব্দ পাওয়া যায়নি।
+        </p>
+        <h2 class="font-bangla text-stone-800 text-4xl">
+          অন্য কোন শব্দ দিয়ে খোঁজ করুন
+        </h2>
+      </div>
+    `;
+  } else {
+    getEl("search-results-container").classList.add("lg:grid-cols-3");
+    data.forEach((word) => {
+      const newCard = document.createElement("div");
+      newCard.className = "card bg-base-100 shadow-xl p-5";
+
+      newCard.innerHTML = `
+        <div class="card-body border hover:bg-sky-50 transition-all duration-1000 border-sky-100 rounded text-center">
+          <h2 class="text-2xl font-semibold">${word.word}</h2>
+          <p class="font-bangla text-xl"></p>
+          <p class="font-bangla">Meaning / Pronunciation</p>
+          <p class="font-bangla text-2xl">"${
+            word.meaning ? word.meaning : "অর্থ নেই"
+          } / ${word.pronunciation}"</p>
+
+          <div class="card-actions justify-between">
+            <button class="btn" onclick="loadWordDetail('${word.id}')">
+              <i class="fa-solid fa-circle-info"></i>
+            </button>
+            <button class="btn" onclick="pronounceWord('${word.word}')">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+        </div>
+      `;
+
+      getEl("search-results-container").append(newCard);
+    });
+  }
+};
+
+const clearSearch = () => {
+  getEl("search-input").value = "";
+  getEl("search-results-section").classList.add("hidden");
+  getEl("search-results-container").innerHTML = "";
+};
 const getLevelWords = (level) => {
   getEl("loader").classList.remove("hidden");
   getEl("word-container").classList.add("hidden");
@@ -196,6 +296,21 @@ getEl("logout-btn").addEventListener("click", () => {
 });
 
 getAllLevels();
+
+// Search functionality event listeners
+getEl("search-btn").addEventListener("click", () => {
+  const searchText = getEl("search-input").value;
+  searchWords(searchText);
+});
+
+getEl("search-input").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    const searchText = getEl("search-input").value;
+    searchWords(searchText);
+  }
+});
+
+getEl("clear-search-btn").addEventListener("click", clearSearch);
 
 hideEl("faq");
 hideEl("playground");

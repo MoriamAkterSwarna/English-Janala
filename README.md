@@ -25,3 +25,9 @@ https://openapi.programming-hero.com/api/word/5
 https://openapi.programming-hero.com/api/words/all
 ```
 
+
+5. Get ⚡ Searched  Words <br/>
+
+```bash 
+https://openapi.programming-hero.com/api/words?searchText=a
+```
